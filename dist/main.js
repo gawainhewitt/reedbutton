@@ -26,7 +26,7 @@ var cnvDimension;
 var bufferToPlay = buffer1;
 var lastBuffer;
 var currentBuffer;
-var numberOfSamples = 23; // the number of samples that we are using
+var numberOfSamples = 8; // the number of samples that we are using
 let visualisationSize;
 
 
