@@ -6,9 +6,9 @@
 
 var radiusRatio = 1.5; // number that sets the radius relative to the screen
 var radius; // variable to store the actual radius in
-var backgroundColour = 'rgb(170, 174, 182)';
+var backgroundColour = 'rgb(0, 255, 0)';
 var onColour = 'rgb(255,255,0)';
-var offColour = '#f2fa04';
+var offColour = 'rgb(0, 0, 255)';
 var buttonColour;
 var buttonState = false;
 var whichSound; // which of the samples?
@@ -26,9 +26,8 @@ var cnvDimension;
 var bufferToPlay = buffer1;
 var lastBuffer;
 var currentBuffer;
-var numberOfSamples = 8;
+var numberOfSamples = 8; // the number of samples that we are using
 let visualisationSize;
-let welcome = 0;
 
 
 function preload(){
@@ -72,78 +71,61 @@ function setup() {  // setup p5
           "onstop": reload
         }
       );
-    welcomeScreen();
 }
 
 var rectangleX, rectangleY, rectangleWidth, rectangleHeight;
 
-function welcomeScreen(){
-    welcome = 2;
-    document.getElementsByTagName('body')[0].style.background = "white";
-    if(welcome === 0){
-        console.log("in welcome screen 1");
-        document.getElementById("text").innerHTML = '<h2>Conversations</h2><p>Gawain Hewitt and TROUPE asked the public to respond to a series of questions about music within the context of the pandemic of 2020/21.<br><br>In this installation you can hear the responses.<br></p><h4>Click to continue</h4>';
-    }else if(welcome === 1){
-        console.log("in welcome screen 2");
-        document.getElementById("text").innerHTML = "<h2>To Play Installation:</h2><p>Click the button to play a randomly selected file.<br><br>Click the back button on your browser to return to the Box Office.<br><br></p><h4>Click to continue</h4>";
-    }
-}
-
 function draw() {
-    if(welcome === 2){
-        document.getElementsByTagName('body')[0].style.background = "grey";
-        document.getElementById("text").style.display = "none";
-        rectangleX = width/2 - radius/2;
-        rectangleY = height/2 - radius/4;
-        rectangleWidth = radius;
-        rectangleHeight = radius/2;
-        background(backgroundColour); // background
-        //imageMode(CENTER);
-        if(interfaceState === 0){
-            noStroke();
-            fill(buttonColour);
-            //rect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
-            fill(150);
-            textAlign(CENTER, CENTER);
-            textSize(cnvDimension/20);
-            text("Loading", width/2, height/2);
-        }else if(interfaceState === 1){
-            noStroke();
-            fill(buttonColour);
-            ellipse(width/2, height/2, radius);
-        }else if(interfaceState === 2){
-            stroke(255, 0, 255);
-            strokeWeight(10);
-            let x = rectangleX;
-            let y = rectangleY + (rectangleHeight/2);
-            let startX = x;
-            let startY = y;
-            let endX;
-            let endY;
-            let visualisation = toneWaveForm.getValue();
-            for(let i = 0; i < visualisation.length-1; i++){
-                // point(x, y + (visualisation[i]*visualisationSize));
-                // x = x + rectangleWidth/visualisation.length;
+    rectangleX = width/2 - radius/2;
+    rectangleY = height/2 - radius/4;
+    rectangleWidth = radius;
+    rectangleHeight = radius/2;
+    background(backgroundColour); // background
+    //imageMode(CENTER);
+    if(interfaceState === 0){
+        noStroke();
+        fill(buttonColour);
+        //rect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
+        fill(150);
+        textAlign(CENTER, CENTER);
+        textSize(cnvDimension/20);
+        text("Loading", width/2, height/2);
+    }else if(interfaceState === 1){
+        noStroke();
+        fill(buttonColour);
+        ellipse(width/2, height/2, radius);
+    }else if(interfaceState === 2){
+        stroke(255, 0, 255);
+        strokeWeight(10);
+        let x = rectangleX;
+        let y = rectangleY + (rectangleHeight/2);
+        let startX = x;
+        let startY = y;
+        let endX;
+        let endY;
+        let visualisation = toneWaveForm.getValue();
+        for(let i = 0; i < visualisation.length-1; i++){
+            // point(x, y + (visualisation[i]*visualisationSize));
+            // x = x + rectangleWidth/visualisation.length;
 
-                startY = y + (visualisation[i]*visualisationSize);
-                endX = startX + rectangleWidth/visualisation.length;
-                endY = y + (visualisation[i+1]*visualisationSize);
+            startY = y + (visualisation[i]*visualisationSize);
+            endX = startX + rectangleWidth/visualisation.length;
+            endY = y + (visualisation[i+1]*visualisationSize);
 
-                line(startX, startY, endX, endY);
+            line(startX, startY, endX, endY);
 
-                startX = startX + rectangleWidth/visualisation.length;
-            }
-            //text("Audio Visualisation", width/2, height/2);
-            //console.log(toneWaveForm.getValue());
-        }else if(interfaceState === 3){
-            noStroke();
-            fill(buttonColour);
-            rect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
-            fill(150);
-            textAlign(CENTER, CENTER);
-            textSize(cnvDimension/30);
-            text("Network Problems, click to try again", rectangleX, rectangleY, rectangleWidth, rectangleHeight);// same dimensions as the rectangle above
+            startX = startX + rectangleWidth/visualisation.length;
         }
+        //text("Audio Visualisation", width/2, height/2);
+        //console.log(toneWaveForm.getValue());
+    }else if(interfaceState === 3){
+        noStroke();
+        fill(buttonColour);
+        rect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
+        fill(150);
+        textAlign(CENTER, CENTER);
+        textSize(cnvDimension/30);
+        text("Network Problems, click to try again", rectangleX, rectangleY, rectangleWidth, rectangleHeight);// same dimensions as the rectangle above
     }
 }
 
@@ -161,21 +143,16 @@ function setRadius() {
 }
 
 function handleClick() {
-    if(welcome === 2){
-        if(interfaceState === 1){
-            let d = dist(mouseX, mouseY, width/2, height/2);
-            if (d < radius/2) {
-                buttonPressed();
-                buttonState = true;
-            }
-        }else if(interfaceState === 3){
-                console.log("network click");
-                interfaceState = 0;
-                assignSoundToPlayer();
+    if(interfaceState === 1){
+        let d = dist(mouseX, mouseY, width/2, height/2);
+        if (d < radius/2) {
+            buttonPressed();
+            buttonState = true;
         }
-    }else{
-        welcome = welcome +1;
-        welcomeScreen();
+    }else if(interfaceState === 3){
+            console.log("network click");
+            interfaceState = 0;
+            assignSoundToPlayer();
     }
 }
 
@@ -206,7 +183,7 @@ function chooseSample(){
 
     usedSounds.push(whichSound);
     console.log(`whichSound = ${whichSound}`);
-    theSample = `speech${whichSound}.mp3`;
+    theSample = `speech${whichSound}.flac`;
     console.log(`theSample = ${theSample}`);
     console.log(`usedSounds = ${usedSounds}`);
 
