@@ -2,7 +2,7 @@ body {
     width: 100%;
     padding: 0;
     margin: 0;
-    background-color: grey);
+    background-color: rgb(170, 174, 182);
 }
 
 #mycanvas {  /* dynamically change the p5 canvas to always fill the parent div width.  The width of the canvas from p5 is dynamically created, meaning that it gets applied at element level. There is no way of overriding that with specificity, so you need to raise a declaration as !important: */
@@ -17,28 +17,8 @@ body {
   width: 100%;
 }
 
-#text {
-  font-family: Arial, Helvetica, sans-serif;
-  text-align: left;
-  margin-top: auto;
-  margin-bottom: auto;
-  background-color: white;
-  color: black;
-  padding: 0em 2em 50em 2em;
-}
-
-
-
 @media (min-aspect-ratio: 3/2) {
   .containerclass{
-    position: relative;
-    width: 100%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    /* border: 5px solid red; */
-  }
-  .textclass{
     position: relative;
     width: 48%;
     display: block;
@@ -50,13 +30,6 @@ body {
 
 @media (min-aspect-ratio: 16/17) and (max-aspect-ratio: 3/2) {
   .containerclass{
-    width: 100%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    /* border: 5px solid blue; */
-  }
-  .textclass{
     width: 60%;
     display: block;
     margin-left: auto;
@@ -73,42 +46,15 @@ body {
     margin-right: auto;
     /* border: 5px solid yellow; */
     }
-    .textclass{
-      width: 80%; /* set to 102% to hack around an issue with space to the right in portrait mode*/
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      /* border: 5px solid yellow; */
-      }
 }
 
 h1 {
   font-family: Arial, Helvetica, sans-serif;
+  padding: 20em, 0;
   text-align: center;
   font-size: 5em;
-  color: black;
-  }
-
-  h2 {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: left;
-    font-size: 3em;
-    color: black;
-    }
-
-  h3 {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: left;
-    font-size: 2em;
-    color: black;
-    }
-
-  h4 {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: left;
-    font-size: 2em;
-    color: black;
-    }
+  color: white;
+}
 
 #welcometext {
   font-family: Arial, Helvetica, sans-serif;
@@ -128,10 +74,11 @@ h1 {
 
 p {
   font-family: Arial, Helvetica, sans-serif;
-  text-align: left;
+  padding: 20em, 0;
+  text-align: center;
   font-size: 1.5em;
-  color: black;
-  }
+  color: white;
+}
 
 img {
     width: 100%;
